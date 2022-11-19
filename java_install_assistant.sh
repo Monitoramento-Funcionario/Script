@@ -16,7 +16,7 @@ if [ $? -eq 0 ]
 		echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7)  Opa! Não identifiquei nenhuma versão do Java instalado, mas sem problemas, irei resolver isso agora!"
 		echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7)  Confirme para mim se realmente deseja instalar o Java (S/N)?"
 	read inst
-	if [ \"$inst\" == \"S\" ]
+	if [ \"$inst\" != \"S\" ]
 		then
 			echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7)  Ok! Você escolheu instalar o Java ;D"
 			echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7)  Adicionando o repositório!"
@@ -45,6 +45,9 @@ fi
 # Podera modificar e reproduzir para uso pessoal.
 # Proibida a comercialização e a exclusão da autoria.
 # ===================================================================
+
+
+
 # ===================================================================
 # Intalação do projeto.
 # ===================================================================
@@ -57,12 +60,16 @@ echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7)  Ok! Você escolheu instal
       clear
       git clone https://github.com/Monitoramento-Funcionario/CLI-jar.git
 clear
-
+      cd Jar-Exe/target
+      sudo java -jar MiracleSolution-JFrame-1.0-SNAPSHOT-jar-with-dependencies.jar
 else
 echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7)  Ok! Você escolheu instalar a versão Display ;D"
 			echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7)  Adicionando o repositório!"
       clear
       git clone https://github.com/Monitoramento-Funcionario/Jar-Exe.git
+      clear
+      cd Jar-Exe/target
+      sudo java -jar MiracleSolution-JFrame-1.0-SNAPSHOT-jar-with-dependencies.jar
 fi
-cd Jar-Exe/target
-sudo java -jar MiracleSolution-JFrame-1.0-SNAPSHOT-jar-with-dependencies.jar
+
+
