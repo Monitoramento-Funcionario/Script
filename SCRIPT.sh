@@ -69,11 +69,13 @@ if [ \"$versaojar\" == \"1\" ]
       echo -e  "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt}  Ok! Você escolheu instalar a versão Display ;D"
 	    echo -e  "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt}  Adicionando o repositório!"
       wget $jarDisplay 1> /dev/null 2> /dev/stdout
-      chmod 777 app.jar
-      sudo java -jar app.jar 
+      chmod 701 app.jar
+      java -jar app.jar 
     else
-      chmod 777 app.jar
-      sudo java -jar app.jar 
+    echo -e  "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt}  Ok! Você escolheu instalar a versão Display ;D"
+	    echo -e  "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt}  Adicionando o repositório!"
+      chmod 701 app.jar
+      java -jar app.jar 
     fi
 fi
 }
@@ -83,6 +85,8 @@ criar_container_mysql() {
 		echo -e  ""
 		echo -e "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt} Finalizando instalação do docker..."
 		sudo docker run -d -p 3306:3306 --name healthBD -e "MYSQL_ROOT_PASSWORD=urubu100" imagem_wsl:1.0  1> /dev/null 2> /dev/stdout
+    else
+    sudo docker start healthBD
 	fi
 	cloner_repositorio	
 }
