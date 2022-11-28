@@ -29,14 +29,14 @@ criar_container() {
   then
   echo -e  ""
   echo -e "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt}  Criando o container..."
-  sudo docker run -it -d -p 8080:8080 --name healthMachine healthmachine/java
+  sudo docker run -it -d -p 8080:8080 --name healthMachine --link healthBD:healthBD healthmachine/java
   echo -e  "Executando o app"
   fi
   instalando_healthMachine
 }
 gerar_imagem_personalizada() {
 
-    sudo docker build . --tag healthmachine/java
+    sudo docker build -t healthmachine/java .
     sudo docker images
 
     criar_container
