@@ -69,10 +69,10 @@ if [ \"$versaojar\" == \"1\" ]
       echo -e  "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt}  Ok! Você escolheu instalar a versão Display ;D"
 	    echo -e  "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt}  Adicionando o repositório!"
       wget $jarDisplay 1> /dev/null 2> /dev/stdout
-      chmod 701 app.jar
+      chmod 777 app.jar
       sudo java -jar app.jar 
     else
-      chmod 701 app.jar
+      chmod 777 app.jar
       sudo java -jar app.jar 
     fi
 fi
