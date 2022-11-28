@@ -8,7 +8,6 @@ VERSAO=11
 # ===================================================================
 jarDisplay='https://github.com/Monitoramento-Funcionario/api-health/raw/main/api-health-display/app.jar'
 script_bd='https://cdn.discordapp.com/attachments/1004014309485060149/1046538112785981450/BD.sql'
-app='app.jar'
 
 
 corBot='\e[38;5;207m'
@@ -21,10 +20,6 @@ dftxt=$(tput sgr0)
 instalando_healthMachine() {
   echo -e  "Iniciando a aplicação Health Machine"
   sudo docker exec -it healthMachine java -jar app.jar 
-}
-iniciando(){
-  sudo apt-get update && apt-get upgrade 1> /dev/null 2> /dev/stdout
-  sudo java -jar $app 1> /dev/null 2> /dev/stdout
 }
 criar_container() {
   if [ "$(sudo docker ps -aqf 'name=healthMachine' | wc -l)" -eq "0" ]
@@ -74,9 +69,11 @@ if [ \"$versaojar\" == \"1\" ]
       echo -e  "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt}  Ok! Você escolheu instalar a versão Display ;D"
 	    echo -e  "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt}  Adicionando o repositório!"
       wget $jarDisplay 1> /dev/null 2> /dev/stdout
-      iniciando
+      chmod 701 app.jar
+      sudo java -jar app.jar 
     else
-      iniciando
+      chmod 701 app.jar
+      sudo java -jar app.jar 
     fi
 fi
 }
