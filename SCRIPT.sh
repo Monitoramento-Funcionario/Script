@@ -29,6 +29,10 @@ criar_container() {
   sudo docker run -it -d -p 8080:8080 --name healthMachine healthmachine/java
   echo -e  "Executando o app"
   fi
+  if [ "$(sudo docker start -aqf 'name=healthMachine' | wc -l)" -eq "0" ]
+  then
+    sudo docker start healthBD
+	fi
   instalando_healthMachine
 }
 gerar_imagem_personalizada() {
@@ -87,7 +91,7 @@ criar_container_mysql() {
 		sudo docker run -d -p 3306:3306 --name healthBD -e "MYSQL_ROOT_PASSWORD=urubu100" imagem_wsl:1.0  1> /dev/null 2> /dev/stdout
     else
     
-    if [ "$(sudo docker start -aqf 'name=healthBD' | wc -l)" -eq "0" ]
+  if [ "$(sudo docker start -aqf 'name=healthBD' | wc -l)" -eq "0" ]
   then
     sudo docker start healthBD
 	fi
