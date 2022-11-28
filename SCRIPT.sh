@@ -91,6 +91,7 @@ criar_container_mysql() {
   then
     sudo docker start healthBD
 	fi
+fi
 	cloner_repositorio	
 }
 gerar_imagem_personalizada_msql() {
@@ -102,9 +103,7 @@ gerar_imagem_personalizada_msql() {
   then
   echo -e  "
   FROM mysql:5.7
-
   ENV MYSQL_DATABASE miraclesolutions
-
   COPY BD.sql /docker-entrypoint-initdb.d/
 " > dockerfile
 	fi
