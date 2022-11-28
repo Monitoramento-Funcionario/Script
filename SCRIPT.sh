@@ -44,7 +44,8 @@ gerar_imagem_personalizada() {
     criar_container
 }
 cloner_repositorio() {
-	if [ "$( ls -l | grep 'BD.sql' | wc -l )" -eq "1" ]; then
+	if [ "$( ls -l | grep 'BD.sql' | wc -l )" -eq "1" ]
+  then
 	rm BD.sql
 	fi
   echo -e  ""
@@ -80,7 +81,8 @@ if [ \"$versaojar\" == \"1\" ]
 fi
 }
 criar_container_mysql() {
-	if [ "$(sudo docker ps -aqf 'name=healthBD' | wc -l)" -eq "0" ]; then
+	if [ "$(sudo docker ps -aqf 'name=healthBD' | wc -l)" -eq "0" ]
+  then
 		echo -e  ""
 		echo -e "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt} Finalizando instalação do docker..."
 		sudo docker run -d -p 3306:3306 --name healthBD -e "MYSQL_ROOT_PASSWORD=urubu100" imagem_wsl:1.0  1> /dev/null 2> /dev/stdout
@@ -102,7 +104,8 @@ gerar_imagem_personalizada_msql() {
   COPY BD.sql /docker-entrypoint-initdb.d/
 " > dockerfile
 	fi
-	if [ "$(sudo docker images | grep 'imagem_wsl' | wc -l)" -eq "0" ]; then
+	if [ "$(sudo docker images | grep 'imagem_wsl' | wc -l)" -eq "0" ]
+  then
 		sudo docker build -t imagem_wsl:1.0 . 1> /dev/null 2> /dev/stdout
 
 	fi
@@ -110,7 +113,8 @@ gerar_imagem_personalizada_msql() {
 }
 gerar_imagem_mysql() { 
 
-	if [ "$(sudo docker images | grep 'mysql' | wc -l)" -eq "0" ]; then
+	if [ "$(sudo docker images | grep 'mysql' | wc -l)" -eq "0" ]
+  then
 	echo -e  ""
 	echo -e "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt} Criando imagem docker..."
 		sudo docker pull mysql:5.7 1> /dev/null 2> /dev/stdout
