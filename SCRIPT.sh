@@ -86,6 +86,9 @@ criar_container_mysql() {
 		echo -e "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt} Finalizando instalação do docker..."
 		sudo docker run -d -p 3306:3306 --name healthBD -e "MYSQL_ROOT_PASSWORD=urubu100" imagem_wsl:1.0  1> /dev/null 2> /dev/stdout
     else
+    
+    if [ "$(sudo docker start -aqf 'name=healthBD' | wc -l)" -eq "0" ]
+  then
     sudo docker start healthBD
 	fi
 	cloner_repositorio	
