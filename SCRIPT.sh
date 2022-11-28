@@ -44,7 +44,7 @@ gerar_imagem_personalizada() {
     criar_container
 }
 cloner_repositorio() {
-	if [ "$( ls -l | grep 'scriptBd.sql' | wc -l )" -eq "1" ]; then
+	if [ "$( ls -l | grep 'BD.sql' | wc -l )" -eq "1" ]; then
 	rm BD.sql
 	fi
   echo -e  ""
