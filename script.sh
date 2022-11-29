@@ -31,7 +31,7 @@ criar_container() {
   fi
   if [ "$(sudo docker start -aqf 'name=healthMachine' | wc -l)" -eq "0" ]
   then
-    sudo docker start healthBD
+    sudo docker start healthMachine
 	fi
   instalando_healthMachine
 }
