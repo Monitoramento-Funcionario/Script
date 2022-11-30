@@ -76,7 +76,7 @@ if [ \"$versaojar\" == \"1\" ]
       chmod 701 app.jar
       java -jar app.jar 
     else
-    echo -e  "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt}  Ok! Você escolheu instalar a versão Display ;D"
+    echo -e  "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt}  Ok! Você escolheu iniciar a versão Display ;D"
 	    echo -e  "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt}  Adicionando o repositório!"
       chmod 701 app.jar
       java -jar app.jar 
