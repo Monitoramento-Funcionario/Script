@@ -8,7 +8,7 @@ VERSAO=11
 # ===================================================================
 jarDisplay='https://github.com/Monitoramento-Funcionario/api-health/raw/main/api-health-display/app.jar'
 script_bd='https://cdn.discordapp.com/attachments/1004014309485060149/1046538112785981450/BD.sql'
-
+jarCLI='https://github.com/Monitoramento-Funcionario/api-health/raw/main/api-health-cli/app.jar'
 
 corBot='\e[38;5;207m'
 bold=$(tput bold) 
@@ -22,24 +22,32 @@ instalando_healthMachine() {
   sudo docker exec -it healthMachine java -jar app.jar 
 }
 criar_container() {
-  if [ "$(sudo docker ps -aqf 'name=healthMachine' | wc -l)" -eq "0" ]
+  if [ "$( sudo docker ps -aqf 'name=healthMachine' | wc -l )" -eq "0" ]
   then
   echo -e  ""
   echo -e "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt}  Criando o container..."
-  sudo docker run -it -d -p 8080:8080 --name healthMachine healthmachine/java
+  sudo docker run -it -d -p 8080:8080 --name healthMachine healthmachine/java 
   echo -e  "Executando o app"
   fi
-  if [ "$(sudo docker start -aqf 'name=healthMachine' | wc -l)" -eq "0" ]
+  if [ "$( sudo docker ps | grep 'healthMachine' | wc -l )" -eq "0" ]
   then
-    sudo docker start healthMachine
+    sudo docker start healthMachine 
 	fi
   instalando_healthMachine
 }
 gerar_imagem_personalizada() {
-
-    sudo docker build . --tag healthmachine/java
-    sudo docker images
-
+    
+  if [ "$( ls -l | grep 'dockerfile' | wc -l )" -eq "0" ]
+  then
+  echo -e  "
+  FROM openjdk:11.0.15-jdk
+  WORKDIR /
+  ADD app.jar app.jar
+  EXPOSE 8080
+  CMD java -jar app.jar
+" > dockerfile
+	fi  
+    sudo docker build . --tag healthmachine/java 1> /dev/null 2> /dev/stdout
     criar_container
 }
 cloner_repositorio() {
@@ -57,14 +65,14 @@ if [ \"$versaojar\" == \"1\" ]
     then
    if [ "$(ls | grep 'api-health' | wc -l)" -eq "0" ]
     then
-    echo -e  "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt}  Ok! Você escolheu instalar a versão CLI ;D"
+    echo -e "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt}  Ok! Você escolheu instalar a versão CLI ;D"
     echo -e "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt}  Clonando a aplicação..."
-    git clone "https://github.com/Monitoramento-Funcionario/api-health"
-   fi
+    mkdir api-health
     cd api-health
-    pwd
-    cd api-health-cli
-    pwd
+    wget $jarCLI 1> /dev/null 2> /dev/stdout
+    else
+     cd api-health
+   fi
     gerar_imagem_personalizada
 
   else
@@ -88,10 +96,10 @@ criar_container_mysql() {
   then
 		echo -e  ""
 		echo -e "${corBot}${bold}[Health-assistant]:${cortxt}${deftxt} Finalizando instalação do docker..."
-		sudo docker run -d -p 3306:3306 --name healthBD -e "MYSQL_ROOT_PASSWORD=urubu100" imagem_wsl:1.0  1> /dev/null 2> /dev/stdout
+		sudo docker run -d -p 3306:3306 --name healthBD -e "MYSQL_ROOT_PASSWORD=urubu100" heathBD:1.0  1> /dev/null 2> /dev/stdout
     else
     
-  if [ "$(sudo docker start -aqf 'name=healthBD' | wc -l)" -eq "0" ]
+  if [ "$(sudo docker ps | grep 'healthBD' | wc -l)" -eq "0" ]
   then
     sudo docker start healthBD
 	fi
@@ -111,10 +119,9 @@ gerar_imagem_personalizada_msql() {
   COPY BD.sql /docker-entrypoint-initdb.d/
 " > dockerfile
 	fi
-	if [ "$(sudo docker images | grep 'imagem_wsl' | wc -l)" -eq "0" ]
+	if [ "$(sudo docker images | grep 'heathBD' | wc -l)" -eq "0" ]
   then
-		sudo docker build -t imagem_wsl:1.0 . 1> /dev/null 2> /dev/stdout
-
+		sudo docker build -t heathBD:1.0 . 1> /dev/null 2> /dev/stdout
 	fi
 	criar_container_mysql
 }
